@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+    <meta charset="utf-8">
+        <title>Pokes</title>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="wrapper">
+            <form class="" action="{%url 'bb_app:logoff' %}" method="post">
+                {% csrf_token %}
+                <input type="submit" name="" value="Log off">
+            </form>
+            <h1>Welcome, {{user.first_name}}</h1>
+
+            {% if user_pokes.count == 0 %}
+                <h3>You have no pokes.</h3>
+            {% else %}
+            <h2>{{pokers_of_user.count}} people poked you!</h2>
+                {% for pokers in pokers_of_user %}
+                    <p>{{pokers.first_name}} poked you {{pokers.the_poker.count}} times.</p>
+                {% endfor %}
+            {% endif %}
+            <h3>People you may want to poke</h3>
+            <table>
+                <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Alias</th>
+                    <th>Email Address</th>
+                    <th>Poke History</th>
+                    <th>Action</th>
+                </tr>
+                {% for people in all_users %}
+                <tr>
+                    <td>{{people.first_name}} {{people.last_name}}</td>
+                    <td>{{people.alias}}</td>
+                    <td>{{people.email}}</td>
+                    <td>{{people.the_pokee.count}} pokes</td>
+                    <td><a href="{% url 'bb_app:poke' id=people.id %}">Poke</a></td>
+                </tr>
+                {% endfor %}
+            </table>
+            </table>
+
+        </div>
+    </body>
+</html>
